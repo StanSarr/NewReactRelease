@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Header from "./header";
-import logo from "./logo.svg";
+import { Container, Row, Col } from "reactstrap";
+import Header from "./components/header";
+import Welcome from "./components/welcome";
 import "./App.css";
 import * as Context from "./context";
 
@@ -9,8 +10,11 @@ class App extends Component {
     return (
       <Context.Language.Provider>
         <Context.Auth.Provider>
-          <div className="App">
+          <div>
             <Header />
+            <Container>
+              <Welcome />
+            </Container>
           </div>
         </Context.Auth.Provider>
       </Context.Language.Provider>
