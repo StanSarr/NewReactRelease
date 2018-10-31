@@ -1,22 +1,16 @@
 import React from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, Button } from "reactstrap";
 import * as Context from "../context";
-const AuthButton = () => (
+import AuthButton from "./authButton";
+
+const LocaleButton = () => (
   <Context.Language.Consumer>
-    {({ locale, translation, switchLocale }) => (
-      <Context.Auth.Consumer>
-        {Auth => (
-          <NavItem right>
-            {Auth.isLoggedIn ? (
-              <Button onClick={() => Auth.logOut()}>
-                {translation.logout}
-              </Button>
-            ) : (
-              <Button onClick={() => Auth.logIn()}>{translation.login}</Button>
-            )}
-          </NavItem>
-        )}
-      </Context.Auth.Consumer>
+    {({ translation, switchLocale }) => (
+      <NavItem right>
+        <Button onClick={() => switchLocale()}>
+          {translation.changeLocale}
+        </Button>
+      </NavItem>
     )}
   </Context.Language.Consumer>
 );
@@ -27,6 +21,8 @@ export default () => {
         <NavbarBrand href="/">React 16.6 Experiencing</NavbarBrand>
         <Nav className="ml-auto" navbar>
           <AuthButton />
+          <div style={{ marginLeft: 20 }} />
+          <LocaleButton />
         </Nav>
       </Navbar>
     </div>
