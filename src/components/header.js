@@ -6,7 +6,7 @@ import AuthButton from "./authButton";
 const LocaleButton = () => (
   <Context.Language.Consumer>
     {({ translation, switchLocale }) => (
-      <NavItem right>
+      <NavItem right={"true"}>
         <Button onClick={() => switchLocale()}>
           {translation.changeLocale}
         </Button>
