@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-const LanguageContext = React.createContext();
+export const LanguageContext = React.createContext({});
 
 // could be imported from our translation.json file
 const translations = {
