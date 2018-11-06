@@ -1,30 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavItem, Button } from "reactstrap";
 import * as Context from "../context";
+import { useUserInfo } from "../hooks/userInfo";
 
-// const someContext = React.createContext({ some: "A" });
 export default () => {
-  const [count, setCount] = useState(0);
-  console.log(count);
+  const Auth = useContext(Context.Auth.AuthContext);
+  const Language = useContext(Context.Language.LanguageContext);
+  const user = useUserInfo("userId");
   return (
-    <Context.Language.Consumer>
-      {({ locale, translation, switchLocale }) => (
-        <Context.Auth.Consumer>
-          {Auth => (
-            <NavItem right={"true"}>
-              {Auth.isLoggedIn ? (
-                <Button onClick={() => Auth.logOut()}>
-                  {translation.logout}
-                </Button>
-              ) : (
-                <Button onClick={() => Auth.logIn()}>
-                  {translation.login}
-                </Button>
-              )}
-            </NavItem>
-          )}
-        </Context.Auth.Consumer>
+    <NavItem right={"true"}>
+      {Auth.isLoggedIn ? (
+        <>
+          <Button onClick={() => Auth.logOut()}>
+            {Language.translation.logout}
+          </Button>
+          {user &&
+            user.isAdmin && (
+              <Button
+                onClick={() => {
+                  //--- Do some Admin Stuff ----//
+                }}
+              >
+                ADMIN BUTTON
+              </Button>
+            )}
+        </>
+      ) : (
+        <Button onClick={() => Auth.logIn()}>
+          {Language.translation.login}
+        </Button>
       )}
-    </Context.Language.Consumer>
+    </NavItem>
   );
 };
